@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,5 +20,13 @@ class UserController extends Controller
             // El usuario no está autenticado
             return response()->json(['error' => 'Usuario no autenticado'], 401);
         }
+    }
+
+    public function update(Request $request){
+		$alimento = User::updateOrCreate(
+			['id' => $request->id],
+			$request->all()
+		);
+		return response()->json($alimento);
     }
 }
